@@ -17,7 +17,7 @@ def fetch_earthquake_data(url):
         properties = feature['properties']
         geometry = feature['geometry']
         utc_time = pd.to_datetime(properties['time'], unit='ms')
-        local_time = utc_time.tz_localize('UTC').tz_convert(pytz.timezone('America/Los_Angeles'))  # Convert to local timezone
+        local_time = utc_time.tz_localize('UTC').tz_convert(pytz.timezone('America/Chicago'))  # Convert to local timezone
         earthquakes.append({
             "place": properties['place'],
             "magnitude": properties['mag'],
@@ -42,7 +42,7 @@ st.title("Real-Time Earthquake Monitoring Webapp")
 st.markdown("This app visualizes real-time and historical earthquake data from the US Geological Survey (USGS).")
 
 # Filter by magnitude
-min_magnitude = st.slider("Minimum Magnitude", min_value=0.0, max_value=10.0, value=1.0, step=0.1)
+min_magnitude = st.slider("Minimum Magnitude", min_value=0.0, max_value=10.0, value=4.0, step=0.1)
 filtered_realtime_data = realtime_earthquake_data[realtime_earthquake_data["magnitude"] >= min_magnitude]
 filtered_historical_data = historical_earthquake_data[historical_earthquake_data["magnitude"] >= min_magnitude]
 
